@@ -1,0 +1,85 @@
+<div class="input-group input-group-sm mb-4 app-controls" id="app-options">
+  <div class="input-group-prepend">
+    <span class="input-group-text font-weight-bold">Options:</span>
+  </div>
+
+  <!-- Choose a file -->
+  <div class="input-group-append" id="">
+    <button
+      class="btn btn-sm btn-outline-info dropdown-toggle border-left-0"
+      type="button"
+      id=""
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false">
+      &nbsp;<span class="badge badge-info">1.</span> Upload File
+    </button>
+    <div class="dropdown-menu">
+{#      <a#}
+{#        class="dropdown-item"#}
+{#        href="#"#}
+{#        data-toggle="modal"#}
+{#        data-target="#load-from-library">#}
+{#        From Library</a>#}
+      <a
+        class="dropdown-item"
+        href="#"
+        data-toggle="modal"
+        data-target="#load-from-local">
+        From Local</a>
+    </div>
+  </div>
+
+  <!-- Choose a field -->
+  <div class="input-group-append" id="">
+    <button
+      class="btn btn-sm btn-outline-info dropdown-toggle border-left-0"
+      type="button"
+      id=""
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false">
+      &nbsp;<span class="badge badge-info">2.</span> Choose Field
+    </button>
+    <div class="dropdown-menu">
+      <a
+        class="dropdown-item disabled"
+        href="#"
+        v-if="csvHeaders.length == 0">
+        No file...</a>
+      <a
+        class="dropdown-item"
+        href="#"
+        v-if="csvHeaders.length > 0"
+        v-for="(header,index) in csvHeaders"
+        :key="'h-' + index"
+        @click="selectField(header)">
+        [[ header ]]</a>
+    </div>
+  </div>
+
+  <!-- Get a Benny -->
+  <div class="input-group-append" id="">
+    <button
+      type="button"
+      id="get-a-benny-btn"
+      class="btn btn-outline-info rounded-right"
+      data-toggle="modal"
+      @click="getBenny">
+      <span class="badge badge-info">3.</span> Get a Graph
+    </button>
+  </div>
+
+  <!-- Get a Benny -->
+  <div class="input-group-append ml-4" id="">
+    <button
+      class="btn btn-sm btn-info rounded-sm"
+      type="button"
+      id=""
+      @click="downloadTable">
+      <i class="fas fa-download"></i>
+      Get Table
+    </button>
+  </div>
+
+</div>

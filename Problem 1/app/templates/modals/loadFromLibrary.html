@@ -1,0 +1,79 @@
+<div
+  class="modal fade" id="load-from-library"
+  data-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="loadFromLibrary"
+  aria-hidden="true">
+
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header shadow-sm">
+        <h5
+          class="modal-title"
+          id="loadFromLibrary">
+          Load a file from the Library
+        </h5>
+        <a
+          href="#"
+          type="button"
+          class="close text-white border-0"
+          data-dismiss="modal"
+          aria-label="Close">
+          <span aria-hidden="true">
+            &times;
+          </span>
+        </a>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+
+        <!-- File description panel -->
+        <div class="row">
+          <div class="col">
+            <div class="collapse multi-collapse" id="multiCollapseExample1">
+              <span class="text-secondary">
+                Info:
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- File options menu -->
+        <br>
+        <div>
+          Files:
+        </div>
+        <select
+          id="lib-modal-select-menu"
+          class="custom-select modal-select-menu py-2 mt-1"
+          multiple
+          @change="setLibCsvChoice($event)">
+          <option
+            v-for="(filename, index) in libCsvMenu"
+            :value="filename"
+            :key="'file-' + index">
+            [[ filename ]]
+          </option>
+        </select>
+
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+
+        <button
+          type="button"
+          title="Load data to the table"
+          class="btn btn-outline-info modal-btn"
+          data-dismiss="modal"
+          @click="getLibCsv">
+          Load
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>

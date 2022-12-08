@@ -1,0 +1,151 @@
+<div
+  class="modal fade" id="load-from-local"
+  data-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="loadFromLocal"
+  aria-hidden="true">
+
+  <!-- Modal Dialog -->
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header shadow-sm">
+        <h5
+          class="modal-title"
+          id="loadFromLibrary">
+          Load a local file
+        </h5>
+        <a
+          href="#"
+          type="button"
+          class="close text-white border-0"
+          data-dismiss="modal"
+          aria-label="Close"
+          @click="csvPreviewAlert=false; switchStatus=false">
+          <span
+            aria-hidden="true">
+            &times;
+          </span>
+        </a>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+
+        <!-- Choose local file -->
+        <input
+          class="border-0 form-control text-dark text-muted pt-1"
+          @change="loadPreview"
+          type="file"
+          accept=".csv"
+          id="csv-file-input"
+          v-model="inputFilename"
+          @click="csvPreviewAlert=false">
+        <hr>
+
+        <!-- Preview mesage -->
+        <div
+          class="no-preview-msg text-center"
+          v-if="csvPreviewHeaders.length == 0">
+          <h5 class="text-muted">No Preview</h5>
+        </div>
+
+        <!-- Preview data wrapper -->
+        <div
+          class="csv-preview"
+          v-if="csvPreviewHeaders.length > 0">
+
+          <!-- Data stats -->
+          <div
+            class="csv-file-stats d-flex justify-content-between mt-2 mb-2"
+            v-if="csvPreviewHeaders.length > 0">
+              <span class="text-muted pr-2">[[ csvPreviewFilename ]] ([[ csvPreviewFileSize ]] KB)</span>
+              <span class="text-muted pl-2">previewing [[ csvPreviewSlice  ]] Rows</span>
+          </div>
+        </div>
+
+        <!-- The tabular preview of the csv data  -->
+        <div class="preview-table table-responsive text-nowrap">
+
+          <!-- the actual preview table -->
+          <table
+            class="table table-sm table-bordered table-striped shadow-sm"
+            cellspacing="0" width="100%">
+            <thead class="text-muted">
+              <tr>
+                <th
+                  v-for="(header, index) in csvPreviewHeaders"
+                  :key="index"
+                  scope="col">[[ header ]]</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                class="text-muted"
+                v-for="(row, index) in csvPreviewData"
+                :key="'data-' + index">
+                <td
+                  v-for="element in row">
+                  [[ element ]]
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <!-- Switch to add csv to app library -->
+        <div
+          class="custom-control custom-switch"
+          v-if="csvPreviewHeaders.length > 0">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            id="customSwitches"
+            :checked="switchStatus"
+            @click="switchStatus=!switchStatus">
+          <label class="custom-control-label text-muted" for="customSwitches">
+            Add file to Library
+          </label>
+        </div>
+
+        <!-- Alert user if they click Load with no file selected -->
+        <transition name="fade">
+          <div
+            class=" d-block w-100 alert alert-danger alert-dismissible fade show text-center"
+            role="alert"
+            v-if="csvPreviewAlert">
+              No file was selected!
+            <button
+              type="button"
+              class="close ml-10"
+              data-dismiss="alert"
+              aria-label="Close">
+              <span aria-hidden="true"
+              @click="csvPreviewAlert=false">&times</span>
+            </button>
+          </div>
+        </transition>
+
+        <!-- buttons for clear and load -->
+        <button
+          type="button"
+          class="btn btn-outline-info modal-btn ml-20"
+          @click="clearCsvPreview">
+          Clear
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-info modal-btn"
+          @click="loadLocalCsv">
+          Load
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

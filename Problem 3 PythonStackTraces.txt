@@ -1,0 +1,219 @@
+Traceback Problem 1
+===================
+Traceback (most recent call last):
+  File "stack_traces.py", line 36, in run_trace
+    f()
+  File "stack_traces.py", line 45, in <lambda>
+    run_trace(1, lambda: perform_calculation(add, '1', 3))
+  File "stack_traces.py", line 8, in perform_calculation
+    calc(x, y)
+  File "stack_traces.py", line 12, in add
+    return x + y
+TypeError: can only concatenate str (not "int") to str
+
+
+
+Answer: 1
+===================
+
+Same type operands required x was cast as string and y was cast as a number. If the calcuation is mathematical recast x to number. if it is suppose to be string recast y as string
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Traceback Problem 2
+===================
+Traceback (most recent call last):
+  File "stack_traces.py", line 36, in run_trace
+    f()
+  File "stack_traces.py", line 46, in <lambda>
+    run_trace(2, lambda: perform_calculation(add, 7, '3'))
+  File "stack_traces.py", line 8, in perform_calculation
+    calc(x, y)
+  File "stack_traces.py", line 12, in add
+    return x + y
+TypeError: unsupported operand type(s) for +: 'int' and 'str'
+
+
+
+Answer: 2
+===================
+
+Same as problem 1
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Traceback Problem 3
+===================
+Traceback (most recent call last):
+  File "stack_traces.py", line 36, in run_trace
+    f()
+  File "stack_traces.py", line 47, in <lambda>
+    run_trace(3, lambda: perform_calculation(mult, '3', '3'))
+  File "stack_traces.py", line 8, in perform_calculation
+    calc(x, y)
+  File "stack_traces.py", line 15, in mult
+    return x * y
+TypeError: can't multiply sequence by non-int of type 'str'
+
+
+Answer: 3
+===================
+
+	multiplying both strings is not permitted. Modify the function to make one of the input parameters as a number
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Traceback Problem 4
+===================
+Traceback (most recent call last):
+  File "stack_traces.py", line 36, in run_trace
+    f()
+  File "stack_traces.py", line 48, in <lambda>
+    run_trace(4, lambda: perform_calculation(mult, [4], [3]))
+  File "stack_traces.py", line 8, in perform_calculation
+    calc(x, y)
+  File "stack_traces.py", line 15, in mult
+    return x * y
+TypeError: can't multiply sequence by non-int of type 'list'
+
+
+Answer: 4
+===================
+
+
+convert one of the input as a number either [4] or [3]
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Traceback Problem 5
+===================
+Traceback (most recent call last):
+  File "stack_traces.py", line 36, in run_trace
+    f()
+  File "stack_traces.py", line 49, in <lambda>
+    run_trace(5, lambda: perform_calculation(innoc, '1', 3))
+  File "stack_traces.py", line 8, in perform_calculation
+    calc(x, y)
+  File "stack_traces.py", line 22, in innoc
+    spelunk()
+  File "stack_traces.py", line 21, in spelunk
+    raise ValueError('Invalid')
+ValueError: Invalid
+
+
+Answer: 5
+===================
+
+try catch failed I would need to see line 21 and give exact problem
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Traceback Problem 6
+===================
+Traceback (most recent call last):
+  File "stack_traces.py", line 36, in run_trace
+    f()
+  File "stack_traces.py", line 50, in <lambda>
+    run_trace(6, lambda: comp_calc([1, 2, 3], 1, add))
+  File "stack_traces.py", line 30, in comp_calc
+    return [perform_calculation(calc, x_i, y_i) for x_i, y_i in zip(x, y)]
+TypeError: zip argument #2 must support iteration
+
+
+Answer: 6
+===================
+we tried to pass non-iterable data to the zip() function. the argument ‘1’ passed into the function is not iterable.
+
+While the value ‘1’ is itself not atomizable, it can still be made iterable by casting it into an iterable context. 
+look around line 30 to understand what the calculation is supposed to achieve, and then modify theline 50 to make sure the arguments can work properly with the calculation.
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Traceback Problem 7
+===================
+Traceback (most recent call last):
+  File "stack_traces.py", line 36, in run_trace
+    f()
+  File "stack_traces.py", line 51, in <lambda>
+    run_trace(7, lambda: comp_calc([1, 2, [3]], [4, 5, 6], add))
+  File "stack_traces.py", line 30, in comp_calc
+    return [perform_calculation(calc, x_i, y_i) for x_i, y_i in zip(x, y)]
+  File "stack_traces.py", line 30, in <listcomp>
+    return [perform_calculation(calc, x_i, y_i) for x_i, y_i in zip(x, y)]
+  File "stack_traces.py", line 8, in perform_calculation
+    calc(x, y)
+  File "stack_traces.py", line 12, in add
+    return x + y
+TypeError: can only concatenate list (not "int") to list
+
+
+Answer: 7
+===================
+Same as problem 6 this time two iterables.
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Traceback Problem 8
+===================
+Traceback (most recent call last):
+  File "stack_traces.py", line 36, in run_trace
+    f()
+  File "stack_traces.py", line 52, in <lambda>
+    run_trace(8, lambda: calc_dict({'one': 1, 'two': '2'}, 'one', 'two', add))
+  File "stack_traces.py", line 26, in calc_dict
+    return perform_calculation(calc, d[k1], d[k2])
+  File "stack_traces.py", line 8, in perform_calculation
+    calc(x, y)
+  File "stack_traces.py", line 12, in add
+    return x + y
+TypeError: unsupported operand type(s) for +: 'int' and 'str'
+
+
+
+Answer: 8
+===================
+decide if the operation is supposed to be mathematical or string type and then update the function arg inputs as needed on line 52.
+
+		For arithmetic: dict = { 'one': 1, 'two': 2 }
+		For stringy: dict = { 'one': '1', 'two': '2' }
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Traceback Problem 9
+===================
+Traceback (most recent call last):
+  File "stack_traces.py", line 36, in run_trace
+    f()
+  File "stack_traces.py", line 53, in <lambda>
+    run_trace(9, lambda: calc_dict({}, 'one', 'two', add))
+  File "stack_traces.py", line 26, in calc_dict
+    return perform_calculation(calc, d[k1], d[k2])
+KeyError: 'one'
+
+
+Answer: 9
+===================
+populate the dictionary at line 53 with at least one key value pair. At least key value pair for one and two
+
+

@@ -1,0 +1,18 @@
+<table class="table table-sm benny-report-table mt-2 mb-2">
+  <thead>
+    <tr>
+      <th scope="col" class=""></th>
+      <th scope="col" v-for="i in 9" class="text-muted">[[ i ]]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="text-left text-primary" style="opacity: 0.7">
+      <th scope="row">Benford:</th>
+      <td v-for="(bc, index) in benfordCurve" :key="'bc-' + index">[[ bc ]]</td>
+    </tr>
+    <tr class="text-dark">
+      <th scope="row">Yours:</th>
+      <td v-for="(yb, index) in bennyCurve" :key="'yc-' + index">[[ yb ]]</td>
+    </tr>
+  </tbody>
+</table>

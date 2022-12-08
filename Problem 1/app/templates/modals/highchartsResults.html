@@ -1,0 +1,156 @@
+<div
+  class="modal fade"
+  id="bennyModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="bennyModalTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="bennyModalTitle">Graph</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+
+        <!-- Chart of results -->
+        <figure class="highcharts-figure">
+          <div id="container"></div>
+        </figure>
+
+        <!-- Button group for changing the chart type -->
+        <div class="d-flex justify-content-center input-group input-group-sm mt-4 mb-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text font-weight-bold">Chart Type:</span>
+          </div>
+
+          <div class="input-group-append" id="">
+            <button
+              class="btn btn-sm btn-outline-info"
+              @click="plain">
+              Column
+            </button>
+            <button
+              class="btn btn-sm btn-outline-info"
+              @click="inverted">
+              Bar
+            </button>
+            <button
+              class="btn btn-sm btn-outline-info"
+              @click="line">
+              Line
+            </button>
+          </div>
+
+          <button
+            class="btn btn-sm btn-outline-info ml-4 rounded-0"
+            type="button"
+            data-toggle="collapse"
+            data-target="#collapseResultsInfo"
+            aria-expanded="false"
+            aria-controls="collapseResultsInfo"
+            @click="showResultsInfo = !showResultsInfo">
+            <i class="fas fa-angle-down" v-if="showResultsInfo == false"></i>
+            <i class="fas fa-angle-up" v-if="showResultsInfo"></i>
+            &nbsp;Info
+          </button>
+
+        </div>
+
+        <!-- Message regaring alignment of Benny to Benford's Law -->
+        <div class="collapse" id="collapseResultsInfo">
+          <div class="card card-body border-0 pb-0">
+
+            <!-- Menu tabs -->
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <a
+                  class="nav-link active" id="result-tab" data-toggle="tab" href="#result"
+                  role="tab" aria-controls="result" aria-selected="true">Result</a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a
+                  class="nav-link" id="data-tab" data-toggle="tab" href="#data"
+                  role="tab" aria-controls="data" aria-selected="false">Data</a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a
+                  class="nav-link" id="inclusions-tab" data-toggle="tab" href="#inclusions"
+                  role="tab" aria-controls="inclusions" aria-selected="false">Inclusions</a>
+              </li>
+            </ul>
+
+
+            <!-- Tabs content -->
+            <div class="tab-content" id="myTabContent">
+
+              <!-- Results -->
+              <div class="tab-pane fade show active" id="result" role="tabpanel" aria-labelledby="result-tab">
+                <ul class="list-group-item mt-2">
+                  <li>
+                    [[ bennyStats.keptRows > 0 ? 'Analysis completed' : 'No records analyzed !']]
+                  </li>
+                  <li>
+                    <span :style="{ color: chiStatColor }">
+                      Chi Square Statistic [[ chiSqrStat <= chiSqrStatLimit ? '<=' : '>' ]] Chi Square Limit
+                    </span>
+                  </li>
+                  <li>
+                    Stat: <strong>[[ chiSqrStat ]]</strong>
+                  </li>
+                  <li>
+                    Limit: <strong>[[ chiSqrStatLimit ]]</strong>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Data -->
+              <div class="tab-pane fade" id="data" role="tabpanel" aria-labelledby="data-tab">
+                {% include 'results_table.html' %}
+              </div>
+
+              <!-- Inclusions -->
+              <div class="tab-pane fade" id="inclusions" role="tabpanel" aria-labelledby="inclusions-tab">
+                <ul class="list-group-item mt-2">
+                  <li>
+                    Total rows: <strong> [[ bennyStats.totRows ]] </strong> <br>
+                  </li>
+                  <li>
+                    Rows analyzed: <strong> [[ bennyStats.keptRows ]] </strong> <br>
+                  </li>
+                  <li>
+                    Rows rejected: <strong> [[ bennyStats.droppedRows ]] </strong> <br>
+                  </li>
+                </ul>
+                <a
+                href="#"
+                @click="getInclusionsReport">
+                  <i class="fas fa-download"></i>&nbsp; Inclusions Report
+                </a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end modal body -->
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        data-dismiss="modal">
+        Close
+      </button>
+      </div>
+
+    </div>
+  </div>
+</div>

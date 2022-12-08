@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="https://unpkg.com/tabulator-tables@4.7.2/dist/css/tabulator.min.css" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/styles.css') }}" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/8f02f6c671.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.7.2/dist/js/tabulator.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="{{ url_for('static', filename='notiflix/dist/notiflix-aio-2.6.0.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/tabulator/header_menu.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/highcharts/chart_options.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/notiflix_init.js') }}"></script>
+
+    <!-- Highcharts -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <title>Assessment</title>
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <div id="app">
+        <div class="main-content">
+
+
+          <!-- Options Buttons -->
+          <br><br>
+          {% include 'appControls/appOptions.html' %}
+
+          <!-- Tabulator table banner -->
+          <div
+            id="tabulator-banner"
+            class="d-flex justify-content-between text-info h6"
+            v-if="csvHeaders.length > 0">
+            <span id="tabulator-filename">
+              [[ csvFilename ]] ([[ csvFileSize ]] KB)
+            </span>
+
+            <span id="tabulator-rowcount">
+              [[ csvData.length ]] Rows
+            </span>
+          </div>
+
+          <!-- Tabulator table -->
+          <!-- <div id="tabulator-table" class="site shadow"></div> -->
+          <div ref="table" id="tabulator-table" class="site shadow"></div>
+
+        </div>
+
+        <!-- MODALS: To import files from Library & Local -->
+        {% include 'modals/loadFromLibrary.html' %}
+        {% include 'modals/loadFromLocal.html' %}
+        {% include 'modals/highchartsResults.html' %}
+
+      </div>
+    </div>
+
+    <!-- JavaScript imports -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.4.0/clipboard.min.js"></script>
+    <script src="{{ url_for('static',filename='js/vue_scripts.js') }}"></script>
+
+    <script>
+    // jQuery activate code-snippets (ie, copy to clipboard feature)
+    (function(){
+      new Clipboard('#copy-button');
+    })();
+
+    // jQuery stop youtube video on close of video modal
+    $(document).ready(function(){
+      $('a.stop-video').click(function(){
+      	$('.youtube-video')[0].contentWindow.postMessage('{"event":"command","func":"' + 'stopVideo' + '","args":""}', '*');
+      });
+    });
+
+    </script>
+
+  </body>
+</html>
